@@ -162,7 +162,8 @@ public abstract class InputStream implements Closeable {
      * <code>b.length - off</code>
      * @see        java.io.InputStream#read()
      *
-     * 将流中的数据读入，放在byte数组的地off位置的len位置
+     * 将流中的数据读入，放在byte数组的第off位置的len位置
+     * 该read(b, off, len)方法只是简单地反复调用方法read()
      */
     public int read(byte b[], int off, int len) throws IOException {
         if (b == null) {
@@ -170,6 +171,7 @@ public abstract class InputStream implements Closeable {
         } else if (off < 0 || len < 0 || len > b.length - off) {
             throw new IndexOutOfBoundsException();
         } else if (len == 0) {
+            // 如果len为零，则不会读取字节并返回0 ;
             return 0;
         }
 
